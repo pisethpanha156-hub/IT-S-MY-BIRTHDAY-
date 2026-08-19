@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday to Me 🎂</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050a18;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-3;
+    background:
+      radial-gradient(circle at 20% 20%,rgba(43,111,255,.28),transparent 32%),
+      radial-gradient(circle at 80% 75%,rgba(123,65,255,.22),transparent 35%);
+}
+
+.stars{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    pointer-events:none;
+}
+
+.star{
+    position:absolute;
+    background:#fff;
+    border-radius:50%;
+    animation:twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle{
+    0%,100%{opacity:.2;transform:scale(.6)}
+    50%{opacity:1;transform:scale(1.3)}
+}
+
+.page{
+    min-height:100vh;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:28px 20px;
+}
+
+.page.active{
+    display:flex;
+    animation:pageIn .8s ease;
+}
+
+@keyframes pageIn{
+    from{opacity:0;transform:translateY(25px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* OPENING */
+
+.hero-title{
+    font-size:clamp(45px,11vw,90px);
+    background:linear-gradient(90deg,#fff,#70a8ff,#b18cff,#fff);
+    background-size:300%;
+    background-clip:text;
+    -webkit-background-clip:text;
+    color:transparent;
+    animation:gradient 5s infinite,titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes gradient{
+    0%{background-position:0}
+    50%{background-position:100%}
+    100%{background-position:0}
+}
+
+@keyframes titleFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-10px)}
+}
+
+.small{
+    margin-top:18px;
+    color:#b9c9ed;
+    font-size:18px;
+}
+
+.age{
+    margin-top:12px;
+    color:#8fb6ff;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.btn{
+    margin-top:28px;
+    padding:14px 27px;
+    border:0;
+    border-radius:50px;
+    color:#fff;
+    background:linear-gradient(135deg,#2878ff,#704bff);
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 0 25px rgba(60,110,255,.45);
+    transition:.25s;
+}
+
+.btn:hover{transform:scale(1.07)}
+.btn:active{transform:scale(.95)}
+
+/* SHORT REFLECTION */
+
+.card{
+    width:min(800px,94vw);
+    padding:30px;
+    border-radius:26px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.13);
+    backdrop-filter:blur(14px);
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+
+.card h2{
+    color:#94baff;
+    font-size:clamp(30px,7vw,48px);
+    margin-bottom:18px;
+}
+
+.card p{
+    color:#e6edff;
+    line-height:1.7;
+    font-size:18px;
+}
+
+/* WISHLIST */
+
+.wish-title{
+    font-size:clamp(35px,9vw,65px);
+    color:#a6c4ff;
+}
+
+.wish-subtitle{
+    margin-top:10px;
+    color:#aebbd7;
+}
+
+.gift-image{
+    width:min(330px,78vw);
+    height:330px;
+    object-fit:contain;
+    margin-top:25px;
+    border-radius:25px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);
+    padding:12px;
+    box-shadow:0 0 40px rgba(67,111,255,.2);
+    animation:giftFloat 3s ease-in-out infinite;
+}
+
+@keyframes giftFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+.wish-name{
+    margin-top:20px;
+    font-size:24px;
+    color:#fff;
+}
+
+.wish-text{
+    max-width:650px;
+    margin-top:10px;
+    color:#c7d4f1;
+    line-height:1.6;
+}
+
+.wish-btn{
+    margin-top:22px;
+}
+
+/* PHOTOS */
+
+.photo-title{
+    font-size:clamp(32px,8vw,58px);
+    color:#9ebdff;
+}
+
+.photos{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:18px;
+    max-width:900px;
+    margin-top:30px;
+}
+
+.photo{
+    width:220px;
+    height:270px;
+    object-fit:cover;
+    border-radius:20px;
+    border:2px solid rgba(255,255,255,.12);
+    opacity:0;
+    transform:translateY(30px) rotate(-3deg);
+    transition:.6s;
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+}
+
+.photo.show{
+    opacity:1;
+    transform:translateY(0) rotate(0);
+}
+
+.photo:hover{
+    transform:scale(1.05) rotate(2deg);
+}
+
+.caption{
+    margin-top:18px;
+    color:#b9c8e9;
+}
+
+/* FINAL */
+
+.final-title{
+    font-size:clamp(38px,9vw,70px);
+    background:linear-gradient(90deg,#fff,#75aaff,#b78cff);
+    background-clip:text;
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.final-text{
+    max-width:700px;
+    margin-top:22px;
+    color:#dce5fb;
+    font-size:18px;
+    line-height:1.7;
+}
+
+/* CONFETTI + HEARTS */
+
+.confetti{
+    position:fixed;
+    top:-30px;
+    z-index:99;
+    pointer-events:none;
+    animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+.heart{
+    position:fixed;
+    bottom:-30px;
+    z-index:4;
+    pointer-events:none;
+    animation:heartUp 5s linear forwards;
+}
+
+@keyframes heartUp{
+    0%{opacity:0;transform:translateY(0)}
+    15%{opacity:1}
+    100%{opacity:0;transform:translateY(-110vh) rotate(360deg)}
+}
+
+@keyframes sparkle{
+    from{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(.5);
+    }
+    to{
+        opacity:0;
+        transform:translate(-50%,-100px) scale(1.8);
+    }
+}
+
+@media(max-width:600px){
+    .card{padding:24px 18px}
+    .card p,.wish-text,.final-text{font-size:16px}
+    .photo{width:145px;height:190px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<!-- PAGE 1 -->
+<section class="page active" id="page1">
+
+    <h1 class="hero-title">Happy Birthday to Me :) 🎂</h1>
+
+    <p class="small">
+        Today is my day. So... let's celebrate it. ✨
+    </p>
+
+    <!-- Change this if you want -->
+    <p class="age">Another year unlocked 🔓</p>
+
+    <button class="btn" onclick="nextPage(2)">
+        Let's Go ✨
+    </button>
+
+</section>
+
+
+<!-- PAGE 2 -->
+<section class="page" id="page2">
+
+    <div class="card">
+
+        <h2>A Little Something 💙</h2>
+
+        <p>
+            Another year, another chapter. I've changed, learned a lot, made memories, and somehow made it here. I don't know exactly what the next chapter will look like, but I'm excited to find out. Here's to everything I've been through, everything I've learned, and everything that's still waiting for me. :)
+        </p>
+
+    </div>
+
+    <button class="btn" onclick="nextPage(3)">
+        Okay... Now The Important Part 👀
+    </button>
+
+</section>
+
+
+<!-- PAGE 3: GIFT YOU WANT -->
+<section class="page" id="page3">
+
+    <h1 class="wish-title">My Birthday Wish 🎁</h1>
+
+    <p class="wish-subtitle">
+        Okay, this is what I REALLY want this year. 👀
+    </p>
+
+    <!--
+        Put the gift picture in the same folder as this HTML
+        and name it exactly: gift.png
+    -->
+    <img
+        src="gift.png"
+        class="gift-image"
+        alt="The gift I want"
+    >
+
+    <h2 class="wish-name">
+        The thing I want for my birthday :)
+    </h2>
+
+    <p class="wish-text">
+        If someone asks me what I want this year... well, now you know. 😭🎁
+    </p>
+
+    <button class="btn wish-btn" onclick="celebrateWish()">
+        I WANT THIS 😭🎉
+    </button>
+
+    <button class="btn" onclick="nextPage(4)">
+        Show Me My Memories 📸
+    </button>
+
+</section>
+
+
+<!-- PAGE 4: PHOTOS -->
+<section class="page" id="page4">
+
+    <h1 class="photo-title">My Year 📸</h1>
+
+    <p class="caption">
+        A few memories from another year of being me. 💙
+    </p>
+
+    <div class="photos">
+
+        <!-- Rename your photos to image1.png, image2.png, image3.png -->
+        <img src="image1.png" class="photo" alt="Memory 1">
+        <img src="image2.png" class="photo" alt="Memory 2">
+        <img src="image3.png" class="photo" alt="Memory 3">
+
+    </div>
+
+    <button class="btn" onclick="nextPage(5)">
+        One Last Thing... 🌌
+    </button>
+
+</section>
+
+
+<!-- PAGE 5 -->
+<section class="page" id="page5">
+
+    <h1 class="final-title">
+        Here's to the Next Chapter 🌌
+    </h1>
+
+    <p class="final-text">
+        I don't know what this next year is going to bring, and honestly, that's part of the fun. There are still so many things I haven't experienced, places I haven't been, memories I haven't made, and things I haven't discovered about myself. I just hope I keep growing, keep laughing, keep making memories, and keep being myself. Whatever happens next, I'll figure it out one step at a time. Happy Birthday to me. 🎂💙 Here's to another year. ✨
+    </p>
+
+    <button class="btn" onclick="finalCelebrate()">
+        🎉 Happy Birthday to Me 🎉
+    </button>
+
+</section>
+
+
+<script>
+
+/* =========================
+   STARS
+   ========================= */
+
+const stars =
+    document.getElementById("stars");
+
+for(let i=0;i<130;i++){
+
+    const star =
+        document.createElement("div");
+
+    star.className="star";
+
+    const size =
+        1+Math.random()*3;
+
+    star.style.width=size+"px";
+    star.style.height=size+"px";
+
+    star.style.left =
+        Math.random()*100+"%";
+
+    star.style.top =
+        Math.random()*100+"%";
+
+    star.style.animationDelay =
+        Math.random()*3+"s";
+
+    star.style.animationDuration =
+        2+Math.random()*4+"s";
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   PAGE SWITCH
+   ========================= */
+
+function nextPage(number){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page=>{
+            page.classList.remove("active");
+        });
+
+    const page =
+        document.getElementById("page"+number);
+
+    page.classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    if(number===4){
+        showPhotos();
+    }
+}
+
+
+/* =========================
+   CONFETTI
+   ========================= */
+
+function createConfetti(){
+
+    const symbols=[
+        "🎉","✨","🎊","💙","⭐","🎂"
+    ];
+
+    for(let i=0;i<100;i++){
+
+        const item =
+            document.createElement("div");
+
+        item.className="confetti";
+
+        item.textContent =
+            symbols[
+                Math.floor(
+                    Math.random()*symbols.length
+                )
+            ];
+
+        item.style.left =
+            Math.random()*100+"vw";
+
+        item.style.animationDelay =
+            Math.random()*1.2+"s";
+
+        item.style.fontSize =
+            12+Math.random()*20+"px";
+
+        document.body.appendChild(item);
+
+        setTimeout(()=>{
+            item.remove();
+        },4000);
+    }
+}
+
+
+/* =========================
+   FLOATING HEARTS
+   ========================= */
+
+function createHeart(){
+
+    const heart =
+        document.createElement("div");
+
+    heart.className="heart";
+
+    heart.textContent=[
+        "💙","💜","🤍","✨"
+    ][Math.floor(Math.random()*4)];
+
+    heart.style.left =
+        Math.random()*100+"vw";
+
+    heart.style.fontSize =
+        15+Math.random()*25+"px";
+
+    heart.style.animationDuration =
+        4+Math.random()*4+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+}
+
+setInterval(createHeart,1200);
+
+
+/* =========================
+   WISH BUTTON
+   ========================= */
+
+function celebrateWish(){
+
+    createConfetti();
+    createConfetti();
+
+    const button =
+        document.querySelector(".wish-btn");
+
+    button.textContent =
+        "YEAHHH I WANT IT 😭🎁";
+
+    setTimeout(()=>{
+        button.textContent =
+            "I WANT THIS 😭🎉";
+    },2500);
+}
+
+
+/* =========================
+   SHOW PHOTOS
+   ========================= */
+
+function showPhotos(){
+
+    const photos =
+        document.querySelectorAll(".photo");
+
+    photos.forEach((photo,index)=>{
+
+        setTimeout(()=>{
+            photo.classList.add("show");
+        },index*400);
+
+    });
+}
+
+
+/* =========================
+   FINAL
+   ========================= */
+
+function finalCelebrate(){
+
+    createConfetti();
+    createConfetti();
+    createConfetti();
+
+    const title =
+        document.querySelector(".final-title");
+
+    title.textContent =
+        "HAPPY BIRTHDAY TO ME! 🎂";
+
+    title.style.animation =
+        "titleFloat 1.5s ease-in-out infinite";
+}
+
+
+/* =========================
+   CLICK SPARKLES
+   ========================= */
+
+document.addEventListener("click",event=>{
+
+    const sparkle =
+        document.createElement("div");
+
+    sparkle.textContent="✨";
+
+    sparkle.style.position="fixed";
+    sparkle.style.left=event.clientX+"px";
+    sparkle.style.top=event.clientY+"px";
+    sparkle.style.pointerEvents="none";
+    sparkle.style.zIndex="999";
+    sparkle.style.fontSize="18px";
+    sparkle.style.animation=
+        "sparkle .7s ease forwards";
+
+    document.body.appendChild(sparkle);
+
+    setTimeout(()=>{
+        sparkle.remove();
+    },700);
+
+});
+
+</script>
+
+</body>
+</html>
